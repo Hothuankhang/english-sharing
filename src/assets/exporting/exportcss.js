@@ -1,0 +1,1 @@
+export * as homeStyle from '../scss/homeStyle/style.css'

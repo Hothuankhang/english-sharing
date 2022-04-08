@@ -1,0 +1,82 @@
+@import url(../all.css);
+#intro{
+    background: url("../../img/big-bgr.jpg") no-repeat;
+    background-size: 100% 100%;
+    .main__content {
+        /* Display & Box Model */
+        padding: 4em 1em;
+        max-width: 1500px;
+        margin: 0.9375em auto;
+
+
+        .head__content__header{
+                /* Display & Box Model */
+            margin: 0.625em;
+            /* Text */
+            text-transform: uppercase;
+            font-size: 1.875em;
+            letter-spacing: 0.25em;
+            text-align: center;
+            font-weight: lighter;
+        }
+        .place{
+            list-style: none;
+
+            padding: 2em 0;
+            display: flex;
+            justify-content: space-around;
+            .place__list{
+                width: 20.375em;
+                border: 1px solid var(--black-color);
+                border-radius: 0px 0px 25px 25px;
+                background-color: var(--white-color);
+
+                img{
+                    width: 100%;
+                }
+                .list__info{
+                    width: 18.375em;
+                    margin: -0.25em auto auto auto;
+                    padding: 0em 1em;
+        
+                    color: #000;
+                }
+                .list__info__place{
+                    font-weight: 0.1;
+                    padding-top: 1em;
+                
+                    font-size: 1em;
+                }
+                .list__info__time{
+                    padding-top: 1em;
+        
+                    font-size: 1em;
+                    color: grey;
+                }
+                .list__info__desc{
+                    padding-top: 1em;
+        
+                    font-size: 1em;
+                }
+                .list__info__buy{
+                    border: none;
+                    border-radius: 25px;
+                    padding: 0.5em 1em;
+                    margin: 1em 0;
+                    width: 100%;
+                
+                    background-color: var(--primary-color);
+                    color: var(--white-color);
+                
+                    font-size: 1em;
+
+                    &:hover{
+                        background-color: var(--text-color);
+                    }
+                }
+            }
+        }
+
+    }
+}
+

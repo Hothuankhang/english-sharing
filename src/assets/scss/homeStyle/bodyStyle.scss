@@ -1,0 +1,49 @@
+@import url(../all.css);
+
+.body{
+    min-height: 100vh;
+    padding: 30px;
+    background: url("../../img/tech-bgr2.png") no-repeat;
+    background-size: 100% 50%;
+        
+}
+.join-now {
+    height: calc(100vh - 200px);
+    display: flex;
+    align-items: center;
+    padding-left: 17%;
+    margin-bottom: 48px;
+    background: url("../../img/tech-bgr.png") no-repeat;
+    background-size: 50% 100%;
+
+
+    .content {
+      max-width: 812px;
+      color: var(--black-color);
+
+      .headline {
+        font-size: 50px;
+        line-height: 1.18;
+        font-family: "mecha";
+        margin-bottom: 4px;
+        text-align: left;
+      }
+
+      .sub-text {
+        text-align: justify;
+        margin-bottom: 32px;
+        font-size: 24px;
+        font-family: "Montserrat";
+        width: 520px;
+      }
+
+      .primary-btn {
+        width: 200px;
+        display: flex;
+        justify-content: space-around;
+        img{
+          width: 50px;
+        }
+      }
+    }
+  }
