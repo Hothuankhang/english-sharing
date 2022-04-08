@@ -68,7 +68,7 @@
   display: flex;
   -webkit-box-pack: start;
       -ms-flex-pack: start;
-          justify-content: start;
+          justify-content: flex-start;
   height: 40px;
   padding: 0 16px 0 8px;
   -webkit-transition: border-color .2s ease-in-out;
