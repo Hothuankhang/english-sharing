@@ -1,10 +1,16 @@
 import React from 'react'
-import '../../assets/scss/homeStyle/bodyStyle.css'
+import '../../assets/scss/homeStyle/style.css'
 import Homemain from './Homemain'
 import Homefooter from './Homefooter'
-
+import {useSelector} from "react-redux"
+import Login from '../Login/Login'
+import Signin from '../Signin/Signin'
 
 function Homebody() {
+  const state = useSelector((state)=>({...state}));
+  const loginShow = state.course.login
+  const signinShow = state.course.signin
+
   return (
     <div className='body'>
       <section className="join-now">
@@ -18,6 +24,8 @@ function Homebody() {
       </section>
       <Homemain/>
       <Homefooter/>
+      {loginShow ? <Login></Login> : ""}
+      {signinShow ? <Signin></Signin> : ""}
     </div>
   )
 }

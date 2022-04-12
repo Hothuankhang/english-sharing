@@ -1,7 +1,7 @@
 import React from 'react'
 import UDNlogo from '../../assets/img/UDN.jpg'
 import UTElogo from '../../assets/img/UTE.png'
-import '../../assets/scss/homeStyle/footerStyle.css'
+import '../../assets/scss/homeStyle/style.css'
 function Homefooter() {
   return (
     <div id="footer" className="clear-fix ">   

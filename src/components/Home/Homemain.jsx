@@ -1,5 +1,5 @@
 import React from 'react'
-import '../../assets/scss/homeStyle/mainStyle.css'
+import '../../assets/scss/homeStyle/style.css'
 import Logo from '../../assets/img/backgrd.webp'
 function Homemain() {
   return (

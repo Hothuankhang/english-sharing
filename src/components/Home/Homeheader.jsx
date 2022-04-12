@@ -1,8 +1,31 @@
 import React from 'react'
 import {Search} from '@mui/icons-material'
 import Logo  from '../../assets/img/UTE.png'
-import '../../assets/scss/homeStyle/headerStyle.css'
+import '../../assets/scss/homeStyle/style.css'
+import {loginCourse,signinCourse} from '../../redux/action'
+
+
+import {useDispatch, useSelector} from "react-redux"
 function Homeheader() {
+  const state = useSelector((state)=>({...state}));
+  const dispatch = useDispatch();
+  const loginShow = state.course.login
+  const signinShow = state.course.signin
+  function handleLogin(){
+    dispatch(
+      loginCourse(
+        !loginShow
+      )
+    )
+  }
+  
+  function handleSignin(){
+    dispatch(
+        signinCourse(
+            !signinShow
+        )
+    )
+}
 
   return (
     <div className='navbar'>
@@ -30,10 +53,9 @@ function Homeheader() {
 
       {/* LOGIN */}
         <div className='navbar__btn'>
-          <a href="https://fullstack.edu.vn/" className='sign_up'>Đăng kí</a>
-          <a href="https://fullstack.edu.vn/" className='login'>Đăng nhập</a>
+          <button  className='sign_up' onClick={handleSignin}>Đăng kí</button>
+          <button className='login' onClick={handleLogin}>Đăng nhập</button>
         </div>
-
     </div>
   )
 }
