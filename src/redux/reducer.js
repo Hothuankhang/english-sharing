@@ -3,6 +3,7 @@ const initialState ={
     todos:[],
     login: false,
     signin: false,
+    page: "MAIN",
 };
 
 const courseReducer =(state = initialState,action)=>{
@@ -21,6 +22,12 @@ const courseReducer =(state = initialState,action)=>{
                 signin: signin,
             };
 
+        case 'SHOW_PAGE' :
+            const page = action.page
+            return{
+                ...state,
+                page: page,
+            };    
 
         default:
             return{

@@ -9,4 +9,11 @@ const loginCourse = (login) =>({
     login: login,
 });
 
-export {loginCourse, signinCourse}
+
+const showPage = (page) =>({
+    type: 'SHOW_PAGE',
+    page: page,
+})
+
+
+export {loginCourse, signinCourse, showPage}

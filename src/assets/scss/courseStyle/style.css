@@ -1,0 +1,106 @@
+@import url(../all.css);
+.list_course {
+  padding: 50px;
+}
+
+.list_course .list__item .course__type h2 {
+  font-size: 20px;
+  font-weight: 900;
+  font-family: "robot";
+  color: var(--text-color);
+  margin: 20px auto;
+  text-align: left;
+}
+
+.list_course .list__item .course__type .course {
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 2fr 2fr 2fr 2fr 2fr;
+      grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
+}
+
+.list_course .list__item .course__type .course button {
+  margin: 20px 10px;
+  min-height: 200px;
+  border: 1px solid var(--text-color);
+  border-radius: 25px;
+  background-color: var(--white-color);
+}
+
+.list_course .list__item .course__type .course button:hover {
+  opacity: 0.5;
+}
+
+.list_course .list__item .course__type .course button h3 {
+  color: var(--primary-color);
+  font-family: "Montserrat";
+}
+
+.course {
+  padding: 30px;
+}
+
+.course__display {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.course__list {
+  border: 1px solid var(--text-color);
+  border-radius: 0 25px 25px 0;
+  color: var(--text-color);
+  font-size: 20px;
+  font-family: "Montserrat";
+  padding: 10px;
+}
+
+.course__list ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  max-height: 600px;
+  overflow: auto;
+}
+
+.course__list ul li {
+  margin: 20px;
+}
+
+.course__list ul li button {
+  width: 438px;
+  height: 60px;
+  background-color: var(--white-color);
+  border: 1px solid var(--text-color);
+  border-radius: 10px;
+}
+
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 5px var(--gray-color);
+          box-shadow: inset 0 0 5px var(--gray-color);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: var(--black-color);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gray-color);
+}
+/*# sourceMappingURL=style.css.map */
