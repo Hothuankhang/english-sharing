@@ -21,7 +21,7 @@ function ListCourse() {
                     <h2>
                         Khóa học kĩ năng nghe
                     </h2>
-                    <div className='course'>
+                    <div className='courses'>
                         <button onClick={()=>handleCourse("ello")}>
                             <img src={Listening} alt="source youtube" />
                             <h3>Course tittle</h3>
@@ -35,7 +35,7 @@ function ListCourse() {
                     <h2>
                         Khóa học kĩ năng nói
                     </h2>
-                    <div className='course'>
+                    <div className='courses'>
                         <button onClick={()=>handleCourse("ello")}>
                             <img src={Listening} alt="source youtube" />
                             <h3>Course tittle</h3>
@@ -48,7 +48,7 @@ function ListCourse() {
                     <h2>
                         Khóa học kĩ năng đọc
                     </h2>
-                    <div className='course'>
+                    <div className='courses'>
                         <button onClick={()=>handleCourse("ello")}>
                             <img src={Listening} alt="source youtube" />
                             <h3>Course tittle</h3>
@@ -61,7 +61,7 @@ function ListCourse() {
                     <h2>
                         Khóa học kĩ năng viêt 
                     </h2>
-                    <div className='course'>
+                    <div className='courses'>
                         <button onClick={()=>handleCourse("ello")}>
                             <img src={Listening} alt="source youtube" />
                             <h3>Course tittle</h3>

@@ -12,14 +12,14 @@
   text-align: left;
 }
 
-.list_course .list__item .course__type .course {
+.list_course .list__item .course__type .courses {
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 2fr 2fr 2fr 2fr 2fr;
       grid-template-columns: 2fr 2fr 2fr 2fr 2fr;
 }
 
-.list_course .list__item .course__type .course button {
+.list_course .list__item .course__type .courses button {
   margin: 20px 10px;
   min-height: 200px;
   border: 1px solid var(--text-color);
@@ -27,17 +27,18 @@
   background-color: var(--white-color);
 }
 
-.list_course .list__item .course__type .course button:hover {
+.list_course .list__item .course__type .courses button:hover {
   opacity: 0.5;
 }
 
-.list_course .list__item .course__type .course button h3 {
+.list_course .list__item .course__type .courses button h3 {
   color: var(--primary-color);
   font-family: "Montserrat";
 }
 
 .course {
   padding: 30px;
+  background-color: var(--black-color);
 }
 
 .course__display {
@@ -50,9 +51,9 @@
 }
 
 .course__list {
-  border: 1px solid var(--text-color);
+  border: 1px solid var(--primary-color);
   border-radius: 0 25px 25px 0;
-  color: var(--text-color);
+  color: var(--primary-color);
   font-size: 20px;
   font-family: "Montserrat";
   padding: 10px;
@@ -95,7 +96,7 @@
 
 /* Handle */
 ::-webkit-scrollbar-thumb {
-  background: var(--black-color);
+  background: var(--white-color);
   border-radius: 10px;
 }
 
