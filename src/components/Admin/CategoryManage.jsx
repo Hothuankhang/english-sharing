@@ -3,44 +3,8 @@ import '../../assets/scss/homeStyle/style.css'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import {useDispatch} from "react-redux"
-import {showAdd} from '../../redux/action'
-const columns = [
-    { field: 'id', headerName: 'ID', width: 70 },
-    { field: 'CategoryName', headerName: 'Tên danh mục', width: 330 },
-    { field: 'CourseNumber', headerName: 'Số khóa học', width: 230 },
-    { field: 'Status', headerName: 'Trạng thái', width: 230 },
-    {
-        field: "click",
-        headerName: "",
-        width: 190,
-        renderCell: () => (
-          <strong>
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{ marginLeft: 16 }}
-            >
-              Edit
-            </Button>
-          </strong>
-        ),
-      },
-  ];
-  
-  var rows = [
-  
-    { id: "CT1", CategoryName: 'Kĩ năng nghe', CourseNumber: 3, Status: "bình thường" },
-    { id: "CT2", CategoryName: 'Kĩ năng nói', CourseNumber: 3, Status: "bình thường" },
-    { id: "CT3", CategoryName: 'Kĩ năng đọc', CourseNumber: 3, Status: "bình thường" },
-    { id: "CT4", CategoryName: 'Kĩ năng viết', CourseNumber: 0, Status: "trống" },
-    { id: "CT5", CategoryName: 'Kĩ năng nghe', CourseNumber: 3, Status: "bình thường" },
-    { id: "CT6", CategoryName: 'Kĩ năng nghe', CourseNumber: 3, Status: "bình thường" },
-    { id: "CT7", CategoryName: 'Kĩ năng nghe', CourseNumber: 0, Status: "trống" },
-    { id: "CT8", CategoryName: 'Kĩ năng nghe', CourseNumber: 3, Status: "bình thường" },
-    { id: "CT9", CategoryName: 'Kĩ năng nghe', CourseNumber: 3, Status: "bình thường" },
+import {showAdd, showEdit} from '../../redux/action'
 
-  ];
 function CategoryManage() {
   const [del,setDel] = useState([])
   // const state = useSelector((state)=>({...state}));
@@ -49,14 +13,14 @@ function CategoryManage() {
         if(del.length<1){
             alert("Hãy chọn dòng cần xóa trước!")
         }
-        for(let i=0;i< rows.length; i++){
+        // for(let i=0;i< rows.length; i++){
 
-            for(let j=0;j< del.length; j++){
-                if(rows[i].id === del[j]){
-                    rows.filter((row) => row !== rows[i])
-                }
-            }
-        }
+        //     for(let j=0;j< del.length; j++){
+        //         if(rows[i].id === del[j]){
+        //             rows.filter((row) => row !== rows[i])
+        //         }
+        //     }
+        // }
         console.log(rows)
     }
 
@@ -65,6 +29,14 @@ function CategoryManage() {
       dispatch(
         showAdd(
           "ADD_CATEGORY"
+        )
+      )
+    }
+    function handleEdit(changeInfor){
+      dispatch(
+        showEdit(
+          "EDIT_CATEGORY",
+          changeInfor
         )
       )
     }
@@ -77,7 +49,58 @@ function CategoryManage() {
       }
       return count
     }
-
+    const columns = [
+      { field: 'id', headerName: 'ID', width: 70 },
+      { field: 'CategoryName', headerName: 'Tên danh mục', width: 330 },
+      { field: 'CourseNumber', headerName: 'Số khóa học', width: 230 },
+      // { field: 'Status', headerName: 'Trạng thái', width: 230 },
+      {
+        field: "Status",
+        headerName: "Trạng thái",
+        width: 230,
+        renderCell: (params) => (
+          <strong>
+            {params.row.CourseNumber !== 0?
+            "bình thường"
+            :
+            "rỗng"  
+          }
+          </strong>
+        ),
+      },
+      {
+          field: "click",
+          headerName: "",
+          width: 190,
+          renderCell: (params) => (
+            <strong>
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                style={{ marginLeft: 16 }}
+                onClick={()=>handleEdit(params.row)}
+              >
+                Edit
+              </Button>
+            </strong>
+          ),
+        },
+    ];
+    
+    var rows = [
+    
+      { id: "CT1", CategoryName: 'Kĩ năng nghe', CourseNumber: 3 },
+      { id: "CT2", CategoryName: 'Kĩ năng nói', CourseNumber: 3},
+      { id: "CT3", CategoryName: 'Kĩ năng đọc', CourseNumber: 3},
+      { id: "CT4", CategoryName: 'Kĩ năng viết', CourseNumber: 0},
+      { id: "CT5", CategoryName: 'Kĩ năng nghe', CourseNumber: 3 },
+      { id: "CT6", CategoryName: 'Kĩ năng nghe', CourseNumber: 3 },
+      { id: "CT7", CategoryName: 'Kĩ năng nghe', CourseNumber: 0 },
+      { id: "CT8", CategoryName: 'Kĩ năng nghe', CourseNumber: 3 },
+      { id: "CT9", CategoryName: 'Kĩ năng nghe', CourseNumber: 3 },
+  
+    ];
   return (
     <div className='category_manage manage'>
         <div className='manage__collect'>

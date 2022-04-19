@@ -5,7 +5,9 @@ const initialState ={
     signin: false,
     page: "HOME",
     head: "MAIN",
-    add:""
+    add:"",
+    edit:"",
+    editInfor:"",
 };
 
 const courseReducer =(state = initialState,action)=>{
@@ -43,6 +45,15 @@ const courseReducer =(state = initialState,action)=>{
             return{
                 ...state,
                 add: add,
+            };
+
+        case 'SHOW_EDIT' :
+            const edit = action.edit
+            const editInfor = action.editInfor
+            return{
+                ...state,
+                edit: edit,
+                editInfor:editInfor,
             }; 
 
         default:

@@ -3,11 +3,12 @@ import '../../assets/scss/homeStyle/style.css'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import {useDispatch} from "react-redux"
-import {showAdd} from '../../redux/action'
+import {showAdd, showEdit} from '../../redux/action'
 
   
   function UserManage() {
     const [del,setDel] = useState([])
+    // const [edit,setEdit] = useState()
     // const state = useSelector((state)=>({...state}));
     const dispatch = useDispatch();
 
@@ -33,6 +34,15 @@ import {showAdd} from '../../redux/action'
       )
     }
 
+    function handleEdit(changeInfor){
+      dispatch(
+        showEdit(
+          "EDIT_USER",
+          changeInfor
+        )
+      )
+    }
+
     function handleCountLock(){
       let count = 0
       for(let i=0 ; i< rows.length;i++){
@@ -43,25 +53,36 @@ import {showAdd} from '../../redux/action'
       return count
     }
 
-    function handleChange(changeInfor){
-      for(let i=0; i<rows.length; i++){
-        if(rows[i]=== changeInfor){
-          console.log('a')
-          // if(rows[i].status === "tạm khóa"){
-          //   rows[i].status = "bình thường"
-          // }
-          // else
-          //   rows[i].status = "tạm khóa"
+    function handleCountShare(){
+      let count = 0
+      for(let i=0 ; i< rows.length;i++){
+        if(rows[i].type==="creator"){
+          count = count+1;
         }
       }
+      return count
     }
+
+    // function handleChange(changeInfor){
+    //   for(let i=0; i<rows.length; i++){
+    //     if(rows[i]=== changeInfor){
+    //       console.log('a')
+    //       // if(rows[i].status === "tạm khóa"){
+    //       //   rows[i].status = "bình thường"
+    //       // }
+    //       // else
+    //       //   rows[i].status = "tạm khóa"
+    //     }
+    //   }
+    // }
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 70 },
       { field: 'fullName', headerName: 'Tên người dùng', width: 330 },
       { field: 'userName', headerName: 'Tên đăng nhập', width: 230 },
-      { field: 'email', headerName: 'Email', width: 430 },
+      { field: 'email', headerName: 'Email', width: 330 },
       { field: 'status', headerName: 'Trạng thái', width: 130 },
+      { field: 'type', headerName: 'Loại tài khoản', width: 130 },
       {
           field: "click",
           headerName: "",
@@ -73,9 +94,9 @@ import {showAdd} from '../../redux/action'
                 color="primary"
                 size="small"
                 style={{ marginLeft: 16 }}
-                onClick={()=>handleChange(params.row)}
+                onClick={()=>handleEdit(params.row)}
               >
-                Change status
+                Edit
               </Button>
             </strong>
           ),
@@ -84,16 +105,16 @@ import {showAdd} from '../../redux/action'
     
     var rows = [
     
-      { id: "US1", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"bình thường" },
-      { id: "US2", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"tạm khóa" },
-      { id: "US3", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"bình thường" },
-      { id: "US4", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"bình thường" },
-      { id: "US5", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"bình thường" },
-      { id: "US6", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"tạm khóa" },
-      { id: "US7", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"bình thường" },
-      { id: "US8", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"tạm khóa" },
-      { id: "US9", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"bình thường" },
-      { id: "US10", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhang.2511@gmail.com",status:"bình thường" },
+      { id: "US1", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "h@gmail.com",status:"bình thường",type:"user" },
+      { id: "US2", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "ho@gmail.com",status:"tạm khóa",type:"creator" },
+      { id: "US3", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hot@gmail.com",status:"bình thường",type:"user" },
+      { id: "US4", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hoth@gmail.com",status:"bình thường",type:"user" },
+      { id: "US5", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothu@gmail.com",status:"bình thường",type:"user" },
+      { id: "US6", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothua@gmail.com",status:"tạm khóa",type:"creator" },
+      { id: "US7", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuan@gmail.com",status:"bình thường",type:"user" },
+      { id: "US8", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuank@gmail.com",status:"tạm khóa",type:"user" },
+      { id: "US9", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankh@gmail.com",status:"bình thường",type:"user" },
+      { id: "US10", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhan@gmail.com",status:"bình thường",type:"creator" },
   
     ];
   return (
@@ -104,10 +125,12 @@ import {showAdd} from '../../redux/action'
                 <li>
                     <p>Tổng số người dùng</p>
                     <p>Số người dùng bị khóa</p>
+                    <p>Số người người chia sẻ</p>
                 </li>
                 <li>
                     <p>{rows.length}</p>
                     <p>{handleCountLock()}</p>
+                    <p>{handleCountShare()}</p>
                 </li>
             </ul>
         </div>

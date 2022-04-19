@@ -25,4 +25,12 @@ const showAdd = (add) =>({
     add: add,
 })
 
-export {loginCourse, signinCourse, showPage, showHeader,showAdd}
+const showEdit = (edit,editInfor) =>({
+    type: 'SHOW_EDIT',
+    edit: edit,
+    editInfor: editInfor,
+})
+
+export {loginCourse, signinCourse, 
+    showPage, showHeader,showAdd,
+    showEdit,}

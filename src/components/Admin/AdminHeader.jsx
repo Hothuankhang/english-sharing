@@ -9,13 +9,15 @@ import { useSelector} from "react-redux"
 import AdminMain from './AdminMain'
 import AddUser from './AddUser'
 import AddCategory from './AddCategory'
-
+import EditUser from './EditUser'
+import EditCategory from './EditCategory'
 function AdminHeader() {
     const state = useSelector((state)=>({...state}));
     // const dispatch = useDispatch();
     const page = state.course.page
     const add = state.course.add
-    console.log(add)
+    const edit = state.course.edit
+
     return (
       <div className='english__course'>
         <div className='navbar'>
@@ -61,6 +63,17 @@ function AdminHeader() {
 
           case "ADD_CATEGORY":
             return <AddCategory/>
+            
+          default:
+            return ""
+        }})()}
+        {(() => {
+        switch(edit){
+          case "EDIT_USER":
+            return <EditUser/>
+
+          case "EDIT_CATEGORY":
+            return <EditCategory/>
             
           default:
             return ""

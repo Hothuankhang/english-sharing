@@ -6,15 +6,15 @@ import FormControl from '@mui/material/FormControl';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import React from 'react'
-import {useDispatch, useSelector} from "react-redux"
+import {useDispatch} from "react-redux"
 import '../../assets/scss/adminStyle/style.css'
 import Logo  from '../../assets/img/UTE.png'
 import { showAdd} from '../../redux/action'
 
 function AddUser() {
-  const state = useSelector((state)=>({...state}));
+  // const state = useSelector((state)=>({...state}));
   const dispatch = useDispatch();
-  const add = state.course.add
+  // const add = state.course.add
 
   function handleCancel(){
     dispatch(
