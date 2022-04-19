@@ -3,7 +3,9 @@ const initialState ={
     todos:[],
     login: false,
     signin: false,
-    page: "MAIN",
+    page: "HOME",
+    head: "MAIN",
+    add:""
 };
 
 const courseReducer =(state = initialState,action)=>{
@@ -28,6 +30,20 @@ const courseReducer =(state = initialState,action)=>{
                 ...state,
                 page: page,
             };    
+
+        case 'SHOW_HEADER' :
+            const head = action.head
+            return{
+                ...state,
+                head: head,
+            };        
+            
+        case 'SHOW_ADD' :
+            const add = action.add
+            return{
+                ...state,
+                add: add,
+            }; 
 
         default:
             return{

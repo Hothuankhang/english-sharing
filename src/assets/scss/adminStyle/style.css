@@ -1,0 +1,184 @@
+@import url(../all.css);
+.main {
+  position: absolute;
+  min-height: 100vh;
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  color: var(--white-color);
+  font-family: "Montserrat";
+  text-transform: uppercase;
+  display: flex;
+}
+
+.main .sidebar {
+  max-height: 100%;
+  min-width: 250px;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(var(--text-color)), color-stop(var(--primary-color)), to(var(--white-color)));
+  background-image: linear-gradient(var(--text-color), var(--primary-color), var(--white-color));
+}
+
+.main .sidebar .sidebar_logo {
+  padding: 20px;
+  border-bottom: 1px solid var(--white-color);
+}
+
+.main .sidebar .sidebar_logo h3 {
+  font-size: 25px;
+}
+
+.main .sidebar .tabs_list .tab {
+  padding: 20px;
+  border-radius: 10px;
+  margin: 20px 10px;
+  cursor: pointer;
+}
+
+.main .sidebar .tabs_list .tab:hover {
+  background-color: var(--text-color);
+}
+
+.main .sidebar .tabs_list .active {
+  background-color: var(--text-color);
+}
+
+.main .sidebar .tabs_list .on_active {
+  background-color: var(--text-color);
+}
+
+.manage {
+  color: var(--text-color);
+  width: 100%;
+  padding: 30px;
+}
+
+.manage .manage__collect h3 {
+  font-size: 30px;
+}
+
+.manage .manage__collect ul {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 500px;
+  margin: 20px auto;
+}
+
+.manage .manage__collect ul li {
+  margin: auto;
+  line-height: 30px;
+}
+
+.manage .manage__collect ul li:nth-child(2) p {
+  font-weight: bold;
+}
+
+.manage .data__grid {
+  max-width: 1500px;
+  min-width: 1100px;
+  height: 500px;
+  margin: auto;
+}
+
+.manage .data__grid .grid {
+  border-radius: 25px;
+  text-transform: none;
+  width: 100%;
+}
+
+.manage .data__grid .btn {
+  float: right;
+  margin: 20px 0px;
+}
+
+.manage .data__grid .btn .delete {
+  margin: auto 20px;
+}
+
+#add {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  position: relative;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+#add .add__form {
+  width: 500px;
+  padding: 20px;
+  border-radius: 20px;
+  background: var(--white-color);
+  -webkit-box-shadow: 0 0 8px  #ccc;
+          box-shadow: 0 0 8px  #ccc;
+}
+
+#add .add__form .infor img {
+  width: 100px;
+  margin: 20px auto;
+}
+
+#add .add__form .infor__close {
+  color: var(--text-color);
+  font-size: 30px;
+  float: left;
+  cursor: pointer;
+}
+
+#add .add__form .infor__close:hover {
+  color: #a3c2c2;
+}
+
+#add .add__form .infor h1 {
+  margin: 0;
+  font-size: 34px;
+  text-align: center;
+  line-height: 83px;
+  text-transform: uppercase;
+}
+
+#add .add__form .infor__input {
+  color: var(--black-color);
+  width: 90%;
+  margin: 20px auto;
+}
+
+#add .add__form .infor__btn {
+  margin-top: 10px;
+  width: 90%;
+  text-align: center;
+}
+
+#add .add__form .infor__btn:hover {
+  background: var(--text-color);
+  color: var(--primary-color);
+}
+
+#add .add__form .infor p {
+  font-size: 20px;
+  margin: 20px auto;
+}
+
+#add .add__form .infor p button {
+  font-size: 20px;
+  border: none;
+  background-color: var(--white-color);
+  text-decoration: underline;
+  color: var(--text-color);
+}
+
+#add .add__form .infor p button:hover {
+  color: var(--primary-color);
+}
+/*# sourceMappingURL=style.css.map */

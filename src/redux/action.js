@@ -15,5 +15,14 @@ const showPage = (page) =>({
     page: page,
 })
 
+const showHeader = (head) =>({
+    type: 'SHOW_HEADER',
+    head: head,
+})
 
-export {loginCourse, signinCourse, showPage}
+const showAdd = (add) =>({
+    type: 'SHOW_ADD',
+    add: add,
+})
+
+export {loginCourse, signinCourse, showPage, showHeader,showAdd}
