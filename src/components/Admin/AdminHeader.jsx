@@ -5,19 +5,31 @@ import '../../assets/scss/homeStyle/style.css'
 // import {showPage} from '../../redux/action'
 import { Avatar } from '@mui/material'
 
-import { useSelector} from "react-redux"
+import { useSelector,useDispatch} from "react-redux"
 import AdminMain from './AdminMain'
 import AddUser from './AddUser'
 import AddCategory from './AddCategory'
 import EditUser from './EditUser'
 import EditCategory from './EditCategory'
+import {showPage, showHeader} from '../../redux/action'
 function AdminHeader() {
     const state = useSelector((state)=>({...state}));
-    // const dispatch = useDispatch();
+    const dispatch = useDispatch();
     const page = state.course.page
     const add = state.course.add
     const edit = state.course.edit
-
+    function handleLogout(){
+      dispatch(
+        showHeader(
+          'MAIN'
+        )
+    )
+    dispatch(
+        showPage(
+          'HOME'
+        )
+    )
+    }
     return (
       <div className='english__course'>
         <div className='navbar'>
@@ -45,6 +57,7 @@ function AdminHeader() {
   
           {/* LOGIN */}
             <div className='navbar__btn'>
+              <button className='login' onClick={handleLogout}>Đăng xuất</button>
               <Avatar>A</Avatar>
             </div>
         </div>
