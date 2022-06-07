@@ -139,7 +139,7 @@ const courseReducer =(state = initialState,action)=>{
             const username = action.username
             const password = action.pass
             const checkAccount = initialState.account
-            const regex = /^\w+([\.-]?\w+)*@w+([\.-]?\w+)*(.\w{2,3})+$/
+            const regex = /^\w+([\.-]?\w+)*@w+([\.-]?\w+)*(\.\w{2,3})+$/
             let checkSame = 0
             let id= 0
 
