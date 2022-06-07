@@ -8,7 +8,7 @@ import React, { useState } from 'react'
 import { useDispatch, useSelector } from "react-redux"
 import '../../assets/scss/adminStyle/style.css'
 import Logo from '../../assets/img/UTE.png'
-import { showEdit } from '../../redux/action'
+import { editUser, showEdit } from '../../redux/action'
 import Button from '@mui/material/Button';
 
 function EditUser() {
@@ -16,8 +16,9 @@ function EditUser() {
   const dispatch = useDispatch();
   const editInfor = state.course.editInfor
   const [editStatus, setEditStatus] = useState(editInfor.status);
-  const [editType, setEditType] = useState(editInfor.type);
+  const [editType, setEditType] = useState(editInfor.role);
 
+  
   const handleChangeStatus = (event) => {
     setEditStatus(event.target.value);
   }
@@ -26,6 +27,15 @@ function EditUser() {
     setEditType(event.target.value);
   }
 
+  function handleEdit(){
+    dispatch(
+      editUser(
+        editInfor.id,
+        editStatus,
+        editType
+      )
+    )
+  }
   function handleCancel() {
     dispatch(
       showEdit(
@@ -52,8 +62,8 @@ function EditUser() {
               label="Trạng thái"
               onChange={handleChangeStatus}
             >
-              <MenuItem value={"bình thường"}>Bình thường</MenuItem>
-              <MenuItem value={"tạm khóa"}>Tạm khóa</MenuItem>
+              <MenuItem value={"active"}>active</MenuItem>
+              <MenuItem value={"lock"}>lock</MenuItem>
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
@@ -66,11 +76,16 @@ function EditUser() {
               label="Loại tài khoản"
               onChange={handleChangeType}
             >
-              <MenuItem value={"user"}>User</MenuItem>
-              <MenuItem value={"creator"}>Creator</MenuItem>
+              <MenuItem value={"admin"}>admin</MenuItem>
+              <MenuItem value={"user"}>user</MenuItem>
+              <MenuItem value={"creator"}>creator</MenuItem>
             </Select>
           </FormControl>
-          <Button className='infor__btn' variant="contained" type='submit'>Cập nhật</Button>
+          <Button className='infor__btn' 
+          variant="contained" 
+          type='submit'
+          onClick={handleEdit}
+          >Cập nhật</Button>
         </Box>
       </div>
     </div>

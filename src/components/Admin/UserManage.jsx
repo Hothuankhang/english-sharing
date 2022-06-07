@@ -2,39 +2,35 @@ import React, { useState } from 'react'
 import '../../assets/scss/homeStyle/style.css'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
-import {useDispatch} from "react-redux"
-import {showAdd, showEdit} from '../../redux/action'
-
+import {deleteUser, showAdd, showEdit} from '../../redux/action'
+import { useDispatch, useSelector } from "react-redux"
   
   function UserManage() {
     const [del,setDel] = useState([])
-    // const [edit,setEdit] = useState()
-    // const state = useSelector((state)=>({...state}));
+    const state = useSelector((state)=>({...state}));
     const dispatch = useDispatch();
 
     function handleDel(){
         if(del.length<1){
             alert("Hãy chọn dòng cần xóa trước!")
         }
-        // for(let i=0;i< rows.length; i++){
-
-        //     for(let j=0;j< del.length; j++){
-        //         if(rows[i].id === del[j]){
-        //             rows.filter((row) => row !== rows[i])
-        //         }
-        //     }
-        // }
-    }
-
-    function handleAdd(){
-      dispatch(
-        showAdd(
-          "ADD_USER"
+        dispatch(
+          deleteUser(
+            del
+          )
         )
-      )
     }
+
+    // function handleAdd(){
+    //   dispatch(
+    //     showAdd(
+    //       "ADD_USER"
+    //     )
+    //   )
+    // }
 
     function handleEdit(changeInfor){
+      console.log(changeInfor)
       dispatch(
         showEdit(
           "EDIT_USER",
@@ -46,7 +42,7 @@ import {showAdd, showEdit} from '../../redux/action'
     function handleCountLock(){
       let count = 0
       for(let i=0 ; i< rows.length;i++){
-        if(rows[i].status==="tạm khóa"){
+        if(rows[i].status==="lock"){
           count = count+1;
         }
       }
@@ -56,7 +52,7 @@ import {showAdd, showEdit} from '../../redux/action'
     function handleCountShare(){
       let count = 0
       for(let i=0 ; i< rows.length;i++){
-        if(rows[i].type==="creator"){
+        if(rows[i].role ==="creator"){
           count = count+1;
         }
       }
@@ -80,9 +76,8 @@ import {showAdd, showEdit} from '../../redux/action'
       { field: 'id', headerName: 'ID', width: 70 },
       { field: 'fullName', headerName: 'Tên người dùng', width: 330 },
       { field: 'userName', headerName: 'Tên đăng nhập', width: 230 },
-      { field: 'email', headerName: 'Email', width: 330 },
       { field: 'status', headerName: 'Trạng thái', width: 130 },
-      { field: 'type', headerName: 'Loại tài khoản', width: 130 },
+      { field: 'role', headerName: 'Loại tài khoản', width: 130 },
       {
           field: "click",
           headerName: "",
@@ -102,21 +97,15 @@ import {showAdd, showEdit} from '../../redux/action'
           ),
         },
     ];
-    
-    var rows = [
-    
-      { id: "US1", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "h@gmail.com",status:"bình thường",type:"user" },
-      { id: "US2", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "ho@gmail.com",status:"tạm khóa",type:"creator" },
-      { id: "US3", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hot@gmail.com",status:"bình thường",type:"user" },
-      { id: "US4", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hoth@gmail.com",status:"bình thường",type:"user" },
-      { id: "US5", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothu@gmail.com",status:"bình thường",type:"user" },
-      { id: "US6", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothua@gmail.com",status:"tạm khóa",type:"creator" },
-      { id: "US7", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuan@gmail.com",status:"bình thường",type:"user" },
-      { id: "US8", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuank@gmail.com",status:"tạm khóa",type:"user" },
-      { id: "US9", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankh@gmail.com",status:"bình thường",type:"user" },
-      { id: "US10", fullName: 'Ho Thuan Khang', userName: 'k2511', email: "hothuankhan@gmail.com",status:"bình thường",type:"creator" },
-  
-    ];
+  let userInfor = state.course.account
+  console.log(userInfor)
+  var rows = [];
+  for(let i=0;i< userInfor.length;i++){
+    const infor =
+    { id: userInfor[i].ID,fullName:userInfor[i].name, userName: userInfor[i].username,status:userInfor[i].status, role:userInfor[i].role }
+    rows.push(infor)
+  }
+
   return (
     <div className='user_manage manage'>
         <div className='manage__collect'>
@@ -125,7 +114,7 @@ import {showAdd, showEdit} from '../../redux/action'
                 <li>
                     <p>Tổng số người dùng</p>
                     <p>Số người dùng bị khóa</p>
-                    <p>Số người người chia sẻ</p>
+                    <p>Số người chia sẻ</p>
                 </li>
                 <li>
                     <p>{rows.length}</p>
@@ -136,6 +125,7 @@ import {showAdd, showEdit} from '../../redux/action'
         </div>
         <div className="data__grid">
             <DataGrid
+                style={{ width: 1100, margin:"auto" }}
                 rows={rows}
                 columns={columns}
                 pageSize={10}
@@ -146,7 +136,7 @@ import {showAdd, showEdit} from '../../redux/action'
             />
             <div className='btn'>
                 <Button variant="contained" onClick={handleDel} className="delete">Delete</Button>
-                <Button variant="contained" onClick={handleAdd} className="add">Add +</Button>
+                {/* <Button variant="contained" onClick={handleAdd} className="add">Add +</Button> */}
             </div>
         </div>
     </div>

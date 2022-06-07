@@ -9,7 +9,7 @@ import React, { useState } from 'react'
 import {useDispatch, useSelector} from "react-redux"
 import '../../assets/scss/addStyle/style.css'
 import Logo  from '../../assets/img/UTE.png'
-import {loginCourse, signinCourse,showPage, showHeader} from '../../redux/action'
+import {loginCourse, signinCourse,showPage, showHeader,loginCheck} from '../../redux/action'
 
 function Login() {
     const [name,setName] = useState('')
@@ -39,27 +39,12 @@ function Login() {
 
     function handleSubmit(e){
         e.preventDefault();
-
-        if(name === "admin" && pass ==="123"){
-            dispatch(
-                loginCourse(
-                    !loginShow
-                )
+        dispatch(
+            loginCheck(
+                name,
+                pass
             )
-            dispatch(
-                showHeader(
-                    "ADMIN"
-                )
-            )
-            dispatch(
-                showPage(
-                    "ADMIN_MAIN"
-                )
-            )
-        }
-        else
-            console.log(pass)
-        
+        )
     }
 
   return (
