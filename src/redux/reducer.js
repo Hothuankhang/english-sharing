@@ -140,8 +140,10 @@ const courseReducer =(state = initialState,action)=>{
             const password = action.pass
             const checkAccount = initialState.account
             const regex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+            const accountList = []
             let checkSame = 0
             let id= 0
+
 
             if(regex.test(username) ){
                 for(let i = 0; i< checkAccount.length;i++){
@@ -169,18 +171,24 @@ const courseReducer =(state = initialState,action)=>{
                         username:username,
                         name:name
                     })
-                
+                    projectFirestore.collection("Account")
+                    .get().then((snapshot)=>{
+                        snapshot.docs.forEach(doc =>{
+                            accountList.push({
+                               ID:doc.id,
+                               id:doc.data().id,
+                               name:doc.data().name,
+                               pass:doc.data().pass,
+                               role:"user",
+                               status:"active",
+                               username:doc.data().username
+                           })
+                        })
+                    })
                     alert("Đăng kí thành công")
                     return{
                         ...state,
-                        account: initialState.account.push({
-                            id:id,
-                            pass:password,
-                            role: "user",
-                            status: "active",
-                            username:username,
-                            name:name
-                        }),
+                        account: accountList,
                         signin:false
                     };
                 }
