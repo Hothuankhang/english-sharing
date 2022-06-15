@@ -8,8 +8,13 @@ import { Avatar } from '@mui/material'
 import { useSelector,useDispatch} from "react-redux"
 
 import {showPage, showHeader} from '../../redux/action'
-import CreatorMain from './CreatorMain'
-function CreatorHeader() {
+import '../../assets/scss/homeStyle/style.css'
+import Homebody from '../Home/Homebody'
+
+import ListCourse from '../Course/ListCourse'
+import Course from '../Course/Course'
+
+function UserHeader() {
     const state = useSelector((state)=>({...state}));
     const dispatch = useDispatch();
     const page = state.course.page
@@ -23,11 +28,19 @@ function CreatorHeader() {
           'MAIN'
         )
     )
+    
     dispatch(
         showPage(
           'HOME'
         )
     )
+    }
+    function handleShowList(){
+      dispatch(
+        showPage(
+          'LIST'
+        )
+      )
     }
     return (
       <div className='english__course'>
@@ -56,21 +69,28 @@ function CreatorHeader() {
   
           {/* LOGIN */}
             <div className='navbar__btn'>
+            <button className='courses sign_up' onClick={handleShowList} >Khóa học</button>
               <button className='login' onClick={handleLogout}>Đăng xuất</button>
               <Avatar>{localStorage.getItem("accountName").at(-1)}</Avatar>
             </div>
         </div>
         {(() => {
-        switch(page){
-          case 'CREATOR_MAIN':
-            return <CreatorMain/>
-            
-          default:
-            return <CreatorMain/>
-        }})()}
+      switch(page){
+        case 'HOME':
+          return <Homebody/>
+
+        case 'LIST':
+          return <ListCourse/>  
+
+        case 'COURSE':
+          return <Course/>
+          
+        default:
+          return <Homebody/>
+      }})()}
 
       </div>
     )
   }
 
-export default CreatorHeader
+export default UserHeader

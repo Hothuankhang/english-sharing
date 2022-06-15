@@ -57,15 +57,22 @@ const deleteUser = (id)=>({
     deleteId: id,
 })
 
-const showCategory = (show)=>({
+const showCategory = (show,editInfor)=>({
     type: "SHOW_CATEGORY",
     show: show,
+    editInfor: editInfor
 })
 
 const addCategory =(name,adminID)=>({
     type: "ADD_CATEGORY",
     name:name,
     adminID:adminID
+})
+
+const editCategoy = (id,editName)=>({
+    type: "EDIT_CATEGORY",
+    editId: id,
+    editName: editName,
 })
 
 const deleteCategory = (id)=>({
@@ -101,6 +108,14 @@ const courseDelete=(deleteId)=>({
     deleteId:deleteId,
 })
 
+const courseEdit=(editId, editName,categoryId,categoryName)=>({
+    type: "COURSE_EDIT",
+    editId:editId,
+    editName:editName,
+    categoryId: categoryId,
+    categoryName: categoryName
+})
+
 const lessonAdd=(name,desc,link,courseId)=>({
     type: "LESSON__ADD",
     name:name,
@@ -109,11 +124,28 @@ const lessonAdd=(name,desc,link,courseId)=>({
     courseId:courseId
 })
 
+const lessonDelete=(deleteId)=>({
+    type: "LESSON_DELETE",
+    deleteId:deleteId,
+})
+
+const lessonEdit=(editId,name,desc,link,courseId)=>({
+    type: "LESSON_EDIT",
+    editId:editId,
+    name:name,
+    desc:desc,
+    link:link,
+    courseId:courseId
+})
+
+
+
 export {loginCourse, signinCourse, 
     showPage, showHeader,showAdd,
     showEdit,loginCheck,editUser,
     deleteUser,signUpCheck,showCategory,
-    addCategory,deleteCategory,
+    addCategory,deleteCategory,editCategoy,
     addCourse,check,courseApprove,
-    courseDelete,lessonAdd
+    courseDelete,lessonAdd,courseEdit,
+    lessonDelete,lessonEdit
 }

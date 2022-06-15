@@ -19,6 +19,8 @@ function AdminHeader() {
     const add = state.course.add
     const edit = state.course.edit
     function handleLogout(){
+      window.location.reload(false);
+      localStorage.clear()
       dispatch(
         showHeader(
           'MAIN'
@@ -58,7 +60,7 @@ function AdminHeader() {
           {/* LOGIN */}
             <div className='navbar__btn'>
               <button className='login' onClick={handleLogout}>Đăng xuất</button>
-              <Avatar>A</Avatar>
+              <Avatar>{localStorage.getItem("accountName").at(-1)}</Avatar>
             </div>
         </div>
         {(() => {

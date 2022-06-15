@@ -1,77 +1,64 @@
 import React from 'react'
 import Listening from '../../assets/img/listening-skill.png'
 import '../../assets/scss/courseStyle/style.css'
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import {showPage} from '../../redux/action'
+import { Avatar } from '@mui/material'
 function ListCourse() {
-    // const state = useSelector((state)=>({...state}));
+    const state = useSelector((state)=>({...state}));
     const dispatch = useDispatch();
-
-    function handleCourse(course){
+    const courseList = state.course.courseList
+    const courseType = state.course.courseType
+    function handleCourse(course,courseId){
+        localStorage.setItem('courseId', courseId)
         dispatch(
             showPage(
               'COURSE'
             )
           )
     }
+
+    function randomColor(){
+        let randomColor = Math.floor(Math.random()*16777215).toString(16);
+        let color = "#" + randomColor .toString(16);
+        return color
+    }
     return (
         <div className="list_course">
             <div className='list__item'>
-                <div className='course__type'>
+                {courseType.map((type)=>{
+                    return(
+                <div className='course__type' key={type.id}>
                     <h2>
-                        Khóa học kĩ năng nghe
+                        {type.name}
                     </h2>
-                    <div className='courses'>
-                        <button onClick={()=>handleCourse("ello")}>
-                            <img src={Listening} alt="source youtube" />
-                            <h3>Course tittle</h3>
-                        </button>
-                        <button onClick={()=>handleCourse("ello")}>
-                            <img src={Listening} alt="source youtube" />
-                            <h3>Course tittle</h3>
-                        </button>
+                    <div className='course_wrapper'>
+                        
+                    {courseList.map((course)=>{
+                        if(course.categoryId === type.id && course.approved !== ""){
+                            return(
+                                <div className='courses' key={course.id}>
+                                <button onClick={()=>handleCourse("ello",course.id)}
+                                style={{backgroundColor:randomColor()}}
+                                >
+                                    <Avatar
+                                    className='display_course'
+                                    sx={{ bgcolor: 'initial' }}
+                                    >{course.name}
+                                    <h3>{course.desc}</h3>
+                                    </Avatar>
+                                    
+                                </button>
+                            </div>
+                            )
+                        }
 
-                    </div>
-                    <h2>
-                        Khóa học kĩ năng nói
-                    </h2>
-                    <div className='courses'>
-                        <button onClick={()=>handleCourse("ello")}>
-                            <img src={Listening} alt="source youtube" />
-                            <h3>Course tittle</h3>
-                        </button>
-                        <button onClick={()=>handleCourse("ello")}>
-                            <img src={Listening} alt="source youtube" />
-                            <h3>Course tittle</h3>
-                        </button>
-                    </div>
-                    <h2>
-                        Khóa học kĩ năng đọc
-                    </h2>
-                    <div className='courses'>
-                        <button onClick={()=>handleCourse("ello")}>
-                            <img src={Listening} alt="source youtube" />
-                            <h3>Course tittle</h3>
-                        </button>
-                        <button onClick={()=>handleCourse("ello")}>
-                            <img src={Listening} alt="source youtube" />
-                            <h3>Course tittle</h3>
-                        </button>
-                    </div>
-                    <h2>
-                        Khóa học kĩ năng viêt 
-                    </h2>
-                    <div className='courses'>
-                        <button onClick={()=>handleCourse("ello")}>
-                            <img src={Listening} alt="source youtube" />
-                            <h3>Course tittle</h3>
-                        </button>
-                        <button onClick={()=>handleCourse("ello")}>
-                            <img src={Listening} alt="source youtube" />
-                            <h3>Course tittle</h3>
-                        </button>
+                    })}
                     </div>
                 </div>
+
+                    )
+                })}
             </div>
         </div>
     )

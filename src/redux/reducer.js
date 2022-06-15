@@ -1,4 +1,5 @@
 import { projectFirestore } from "../firebase/config"; 
+import { showCategory } from "./action";
 const initialState ={
     account:[],
     courseType:[],
@@ -12,6 +13,7 @@ const initialState ={
     edit:"",
     editInfor:"",
     showCategory:"",
+    showLesson:""
 };
 
 var account = projectFirestore.collection("Account")
@@ -34,7 +36,8 @@ var courseType = projectFirestore.collection("CourseType")
                    initialState.courseType.push({
                        id:doc.id,
                        name:doc.data().name,
-                       adminID:doc.data().adminId
+                       adminID:doc.data().adminId,
+                       status:doc.data().status
                    })
                 })
             })
@@ -53,7 +56,7 @@ var courseList = projectFirestore.collection("Courses")
                        status: doc.data().status,
                        type: doc.data().type,
                        adminID: doc.data().adminID,
-                       categoryId: doc.data().categoryId
+                       categoryId: doc.data().categoryId,
                    })
                 })
             })
@@ -85,6 +88,9 @@ const courseReducer =(state = initialState,action)=>{
             const user = action.username
             const pass = action.pass
             const account = initialState.account
+            const updateCourseType= initialState.courseType
+            const updateCourse = initialState.courseList
+            const updateLesson = initialState.lessonList
             let page_role=""
             let page_header=""
             for(let i=0;i<account.length;i++){
@@ -100,7 +106,8 @@ const courseReducer =(state = initialState,action)=>{
                                 page_header="CREATOR"
                                 break;
                             case "user":
-                                console.log("user")
+                                page_role = "USER_MAIN"
+                                page_header="USER"
                                 break;
                             default :
                                 console.log("éc")    
@@ -108,6 +115,7 @@ const courseReducer =(state = initialState,action)=>{
                         console.log(account[i])
                         localStorage.setItem('accountId', account[i].ID);
                         localStorage.setItem('accountName', account[i].name);
+                        localStorage.setItem('roleName', account[i].role);
                 }
             }
 
@@ -116,7 +124,7 @@ const courseReducer =(state = initialState,action)=>{
                 return{
                     ...state,
                     page:page_role,
-                    head:page_header
+                    head:page_header,
                 };
             }
             else{
@@ -167,7 +175,7 @@ const courseReducer =(state = initialState,action)=>{
                         id:id,
                         pass:password,
                         role: "user",
-                        status: "active",
+                        status: "đang hoạt động",
                         username:username,
                         name:name
                     })
@@ -180,7 +188,7 @@ const courseReducer =(state = initialState,action)=>{
                                name:doc.data().name,
                                pass:doc.data().pass,
                                role:"user",
-                               status:"active",
+                               status:"đang hoạt động",
                                username:doc.data().username
                            })
                         })
@@ -212,6 +220,7 @@ const courseReducer =(state = initialState,action)=>{
             return{
                 ...state,
                 head: head,
+
             };        
             
         case 'SHOW_ADD' :
@@ -271,9 +280,11 @@ const courseReducer =(state = initialState,action)=>{
             }
         case "SHOW_CATEGORY":
             const show = action.show
+            const editCategoryInfor = action.editInfor
             return{
                 ...state,
-                showCategory:show,
+                editInfor:editCategoryInfor,
+                showCategory: action.show
             }
 
         case "ADD_CATEGORY":
@@ -291,7 +302,8 @@ const courseReducer =(state = initialState,action)=>{
             if(checkExist === 0){
                 projectFirestore.collection("CourseType").add({
                     adminId: adminId,
-                    name:categoryName
+                    name:categoryName,
+                    status:"rỗng"
                 })
                 projectFirestore.collection("CourseType")
                 .get().then((snapshot)=>{
@@ -299,7 +311,8 @@ const courseReducer =(state = initialState,action)=>{
                     newCategoryList.push({
                        id:doc.id,
                        name:doc.data().name,
-                       adminID:doc.data().adminID
+                       adminID:doc.data().adminID,
+                       status:doc.data().status
                    })
                 })
             })
@@ -333,16 +346,75 @@ const courseReducer =(state = initialState,action)=>{
                 courseType: delCategory,
             }
 
+        case 'EDIT_CATEGORY':
+            const categoryID = action.editId
+            const newName = action.editName
+            const editCategory =initialState.courseType
+            const editCourseType =initialState.courseList
+            const newCategory = []
+            const newCourseType = []
+            projectFirestore.collection("CourseType").doc(categoryID).update({
+                name: newName
+            })
+
+            for(let i=0; i< editCourseType.length;i++){
+                if(editCourseType[i].categoryId === categoryID){
+                    projectFirestore.collection("Courses").doc(editCourseType[i].id).update({
+                        type: newName
+                    })
+                }
+            }
+
+            projectFirestore.collection("CourseType")
+            .get().then((snapshot)=>{
+                snapshot.docs.forEach(doc =>{
+                    newCategory.push({
+                       id:doc.id,
+                       name:doc.data().name,
+                       adminID:doc.data().adminId,
+                       status:doc.data().status
+                   })
+                })
+            })
+
+            projectFirestore.collection("Courses")
+            .get().then((snapshot)=>{
+                snapshot.docs.forEach(doc =>{
+                   newCourseType.push({
+                       id:doc.id,
+                       name:doc.data().name,
+                       approved: doc.data().approved_day,
+                    //    cover: doc.data().cover,
+                       creatorID: doc.data().creatorID,
+                       creatorName: doc.data().creatorName,
+                       desc: doc.data().desc,
+                       status: doc.data().status,
+                       type: doc.data().type,
+                       adminID: doc.data().adminID,
+                       categoryId: doc.data().categoryId,
+                   })
+                })
+            })
+
+            return{
+                ...state,
+                courseType: newCategory,
+                courseList: newCourseType,
+                showCategory:""
+            }
+
         case "COURSE_APPROVE":
             const approvedList = initialState.courseList
             projectFirestore.collection("Courses").doc(action.approveId).update({
                 approved_day: Date(Date.now()),
-                adminID: action.adminId
+                adminID: action.adminId,
+                status:"đã duyệt"
             })
             for(let i = 0; i< approvedList.length;i++){
                 if(action.approveId === approvedList[i].id){
                     approvedList[i].adminID = action.adminId
                     approvedList[i].approved = Date(Date.now())
+                    approvedList[i].status = "đã duyệt"
                 }
             }
             return{
@@ -420,11 +492,52 @@ const courseReducer =(state = initialState,action)=>{
                 ...state,
                 courseList:delCourse
             }
+
+        case 'COURSE_EDIT':
+            const courseID = action.editId
+            const courseName = action.editName
+            const categoryId = action.categoryId
+            const categoryEditName = action.categoryName
+
+            const newCourseEdit = []
+            const newLessonEdit = []
+
+            projectFirestore.collection("Courses").doc(courseID).update({
+                name: courseName,
+                type: categoryEditName,
+                categoryId: categoryId
+
+            })
+
+            projectFirestore.collection("Courses")
+            .get().then((snapshot)=>{
+                snapshot.docs.forEach(doc =>{
+                    newCourseEdit.push({
+                        id:doc.id,
+                        name:doc.data().name,
+                        approved: doc.data().approved_day,
+                     //    cover: doc.data().cover,
+                        creatorID: doc.data().creatorID,
+                        creatorName: doc.data().creatorName,
+                        desc: doc.data().desc,
+                        status: doc.data().status,
+                        type: doc.data().type,
+                        adminID: doc.data().adminID,
+                        categoryId: doc.data().categoryId,
+                   })
+                })
+            })
+
+            return{
+                ...state,
+                courseList:newCourseEdit,
+            }
         
         case "LESSON__ADD":
             const updateLessonList= initialState.lessonList
             let checkLessonExits = 0
             const newList = []
+            let getnewItem = ''
             for(let i = 0 ; i< updateLessonList.length;i++){
                 if(action.name === updateLessonList[i].name){
                     checkLessonExits++
@@ -445,21 +558,69 @@ const courseReducer =(state = initialState,action)=>{
                         name:doc.data().name,
                         courseId: doc.data().courseId,
                         desc: doc.data().desc,
-                        vide_link: doc.data().vide_link
+                        video_link: doc.data().video_link
+                   })
+                })
+            })
+
+            return{
+                ...state,
+                lessonList:newList,
+            }
+            }
+            else{
+                alert("bài học này đã tồn tại")
+                return{
+                    ...state,
+                }
+
+            }
+        
+        case "LESSON_DELETE":
+            const delLessonId = action.deleteId
+            const delLesson =initialState.lessonList
+            for(let i = 0 ; i< delLessonId.length;i++){
+                projectFirestore.collection("Lessons").doc(delLessonId[i]).delete()
+            }
+            for(let i = 0; i< delLesson.length;i++){
+                for(let j = 0 ; j< delLessonId.length;j++){
+                    if(delLesson[i].id === delLessonId[j]){
+                        delLesson.splice(i,1)
+                    }
+                }
+            }
+   
+            return{
+                ...state,
+                lessonList:delLesson
+            }
+
+        case 'LESSON_EDIT':
+
+            console.log(action)
+            let editLesson = []
+            projectFirestore.collection("Lessons").doc(action.editId).update({
+                name:action.name,
+                courseId: action.courseId,
+                desc: action.desc,
+                video_link: action.link
+            })
+
+            projectFirestore.collection("Lessons")
+                .get().then((snapshot)=>{
+                snapshot.docs.forEach(doc =>{
+                    editLesson.push({
+                        id:doc.id,
+                        name:doc.data().name,
+                        courseId: doc.data().courseId,
+                        desc: doc.data().desc,
+                        vide_link: doc.data().video_link
                    })
                 })
             })
             return{
                 ...state,
-                lessonList:newList
-            }
-            }
-            else{
-                alert("Khóa học này đã tồn tại")
-                return{
-                    ...state,
-                }
-
+                lessonList:editLesson
             }
 
         case 'CHECK':

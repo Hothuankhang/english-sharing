@@ -62,8 +62,8 @@ function EditUser() {
               label="Trạng thái"
               onChange={handleChangeStatus}
             >
-              <MenuItem value={"active"}>active</MenuItem>
-              <MenuItem value={"lock"}>lock</MenuItem>
+              <MenuItem value={"đang hoạt động"}>đang hoạt động</MenuItem>
+              <MenuItem value={"tạm khóa"}>tạm khóa</MenuItem>
             </Select>
           </FormControl>
           <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">

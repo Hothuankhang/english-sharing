@@ -98,11 +98,15 @@ import { useDispatch, useSelector } from "react-redux"
         },
     ];
   let userInfor = state.course.account
-  console.log(userInfor)
+
   var rows = [];
   for(let i=0;i< userInfor.length;i++){
     const infor =
-    { id: userInfor[i].ID,fullName:userInfor[i].name, userName: userInfor[i].username,status:userInfor[i].status, role:userInfor[i].role }
+    { id: userInfor[i].ID,
+      fullName:userInfor[i].name, 
+      userName: userInfor[i].username,
+      status:userInfor[i].status, 
+      role:userInfor[i].role }
     rows.push(infor)
   }
 

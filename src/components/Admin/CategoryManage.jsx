@@ -3,7 +3,7 @@ import '../../assets/scss/homeStyle/style.css'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import {useDispatch, useSelector} from "react-redux"
-import {deleteCategory, showAdd, 
+import {deleteCategory, showAdd, showEdit, 
 
 } from '../../redux/action'
 
@@ -40,14 +40,14 @@ function CategoryManage() {
         )
       )
     }
-    // function handleEdit(changeInfor){
-    //   dispatch(
-    //     showEdit(
-    //       "EDIT_CATEGORY",
-    //       changeInfor
-    //     )
-    //   )
-    // }
+    function handleEdit(changeInfor){
+      dispatch(
+        showEdit(
+          "EDIT_CATEGORY",
+          changeInfor
+        )
+      )
+    }
     function handleCountEmpty(){
       let count = 0
       for(let i=0 ; i< rows.length;i++){
@@ -60,7 +60,6 @@ function CategoryManage() {
     function countCourse(typeID){
       let count = 0
       for(let i = 0 ; i< courseList.length;i++){
-        console.log(typeID)
         if(typeID === courseList[i].categoryId){
           count++
           
@@ -72,39 +71,25 @@ function CategoryManage() {
       { field: 'id', headerName: 'ID', width: 70 },
       { field: 'CategoryName', headerName: 'Tên danh mục', width: 300 },
       { field: 'CourseNumber', headerName: 'Số khóa học', width: 130 },
-      // { field: 'Status', headerName: 'Trạng thái', width: 230 },
+      { field: 'Status', headerName: 'Trạng thái', width: 130 },
       {
-        field: "Status",
-        headerName: "Trạng thái",
-        width: 230,
-        renderCell: (params) => (
-          <p>
-            {params.row.CourseNumber !== 0?
-            "bình thường"
-            :
-            "rỗng"  
-          }
-          </p>
-        ),
-      },
-      // {
-      //     field: "click",
-      //     headerName: "",
-      //     width: 190,
-      //     renderCell: (params) => (
-      //       <strong>
-      //         <Button
-      //           variant="contained"
-      //           color="primary"
-      //           size="small"
-      //           style={{ marginLeft: 16 }}
-      //           onClick={()=>handleEdit(params.row)}
-      //         >
-      //           Edit
-      //         </Button>
-      //       </strong>
-      //     ),
-      //   },
+          field: "click",
+          headerName: "",
+          width: 100,
+          renderCell: (params) => (
+            <strong>
+              <Button
+                variant="contained"
+                color="primary"
+                size="small"
+                style={{ marginLeft: 16 }}
+                onClick={()=>handleEdit(params.row)}
+              >
+                Edit
+              </Button>
+            </strong>
+          ),
+        },
     ];
     
 
@@ -112,7 +97,10 @@ function CategoryManage() {
     var rows = [];
     for(let i=0;i< courseType.length;i++){
       const infor =
-      { id: courseType[i].id, CategoryName: courseType[i].name, CourseNumber: countCourse(courseType[i].id),Status: "rỗng" }
+      { id: courseType[i].id,
+        CategoryName: courseType[i].name, 
+        CourseNumber: countCourse(courseType[i].id),
+        Status: courseType[i].status }
       rows.push(infor)
     }
   return (

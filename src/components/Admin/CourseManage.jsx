@@ -72,37 +72,27 @@ function CourseManage() {
       { field: 'Author', headerName: 'Người tạo', width: 230 },
       { field: 'Lesson', headerName: 'Số bài học', width: 80 },
       { field: 'Approve', headerName: 'Ngày duyệt', width: 200 },
-      {
-        field: "Status",
-        headerName: "Trạng thái",
-        width: 130,
-        renderCell: (params) => (
-          <p>
-            {params.row.Approve !== ""?
-            "đã duyệt"
-            :
-            "chưa duyệt"  
-          }
-          </p>
-        ),
-      },
+      { field: 'Status', headerName: 'Trạng thái', width: 130 },
       { field: 'ApprovedID', headerName: 'ID người duyệt', width: 130 },
       {
         field: "click",
         headerName: "",
         width: 90,
         renderCell: (params) => (
+          params.row.Approve === ""?
           <p>
             <Button
               variant="contained"
               color="primary"
               size="small"
-              style={{ marginLeft: 16 }}
+              style={{ marginLeft: 16 , }}
               onClick={()=>handleApprove(params.row.id)}
             >
               Duyệt
             </Button>
           </p>
+          :
+          <p></p>
         ),
       },
     ];
@@ -116,7 +106,7 @@ function CourseManage() {
         Author:course[i].creatorName,
         Lesson: handleLessonCount(course[i].id),
         Approve: course[i].approved,
-        Status:"",
+        Status:course[i].status,
         ApprovedID:course[i].adminID}
       rows.push(infor)
     }

@@ -10,7 +10,8 @@ import { courseDelete,
 } from '../../redux/action';
 import CourseAdd from './CourseAdd';
 import '../../assets/scss/addStyle/style.css'
-import LessonAdd from './LessonAdd';
+import EditCourse from './EditCourse';
+import LessonManage from './LessonManage';
 
 function CourseManage() {
   const [del,setDel] = useState([])
@@ -19,6 +20,7 @@ function CourseManage() {
   const courseList = state.course.courseList
   const show = state.course.showCategory
   const lessonList = state.course.lessonList
+
   function handleDel(){
     if(del.length<1){
         alert("Hãy chọn dòng cần xóa trước!")
@@ -37,11 +39,22 @@ function CourseManage() {
         )
       )
     }
-    function handleLessonAdd(courseId){
-      localStorage.setItem('courseId', courseId)
+
+    function handleEdit(editInfor){
+      console.log(editInfor)
       dispatch(
         showCategory(
-          'LESSON_ADD'
+          'LESSON_EDIT',
+          editInfor
+        )
+      )
+    }
+
+    function handleLessonAdd(courseId){
+      
+      dispatch(
+        showCategory(
+          'LESSON_ADD',
         )
       )
     }
@@ -58,20 +71,19 @@ function CourseManage() {
 
     function handleLessonCount(courseId){
       let count = 0
-
       for(let i=0 ; i< lessonList.length;i++){
         if(lessonList[i].courseId===courseId){
-          count = count+1;
+          count ++;
         }
       }
-      console.log(count)
+      
       return count
     }
 
     const columns = [
       { field: 'id', headerName: 'ID', width: 70 },
       { field: 'CourseName', headerName: 'Tên khóa học', width: 230 },
-      { field: 'CategoryName', headerName: 'Thuộc danh mục', width: 230 },
+      { field: 'CategoryName', headerName: 'Thuộc danh mục', width: 180 },
       { field: 'Lesson', headerName: 'Số bài học', width: 80 },
       { field: 'Approve', headerName: 'Ngày duyệt', width: 230 },
       {
@@ -91,24 +103,7 @@ function CourseManage() {
       {
         field: "clickEdit",
         headerName: "",
-        width: 90,
-        renderCell: () => (
-          <strong>
-            <Button
-              variant="contained"
-              color="primary"
-              size="small"
-              style={{ marginLeft: 16 }}
-            >
-              Edit
-            </Button>
-          </strong>
-        ),
-      },
-      {
-        field: "clickAdd",
-        headerName: "",
-        width: 150,
+        width: 130,
         renderCell: (params) => (
           <strong>
             <Button
@@ -116,13 +111,31 @@ function CourseManage() {
               color="primary"
               size="small"
               style={{ marginLeft: 16 }}
-              onClick={()=>handleLessonAdd(params.row.id)}
+              onClick={()=>handleEdit(params.row)}
             >
-              Add lesson
+              Cập nhật
             </Button>
           </strong>
         ),
       },
+      // {
+      //   field: "clickAdd",
+      //   headerName: "",
+      //   width: 150,
+      //   renderCell: (params) => (
+      //     <strong>
+      //       <Button
+      //         variant="contained"
+      //         color="primary"
+      //         size="small"
+      //         style={{ marginLeft: 16 }}
+      //         onClick={()=>handleLessonAdd(params.row.id)}
+      //       >
+      //         Thêm bài học
+      //       </Button>
+      //     </strong>
+      //   ),
+      // },
     ];
     var rows = [];
 
@@ -136,7 +149,10 @@ function CourseManage() {
       Approve: courseList[i].approved,
       Status:courseList[i].status,
       click: <button>Hello</button>,}
-    rows.push(infor)
+      if(courseList[i].creatorID === localStorage.getItem("accountId")){
+        rows.push(infor)
+
+      }
   }
 
   return (
@@ -169,8 +185,8 @@ function CourseManage() {
             className="grid"
         />
             <div className='btn'>
-                <Button variant="contained" onClick={handleDel} className="delete">Delete</Button>
-                <Button variant="contained" onClick={handleAdd} className="add">Add +</Button>
+                <Button variant="contained" onClick={handleDel} className="delete">Xóa khóa học</Button>
+                <Button variant="contained" onClick={handleAdd} className="add">Thêm khóa học</Button>
             </div>
     </div>
     {(() => {
@@ -178,7 +194,9 @@ function CourseManage() {
             case 'COURSE_ADD':
             return <CourseAdd/>
             case 'LESSON_ADD':
-            return <LessonAdd/>
+            return <LessonManage/>
+            case 'LESSON_EDIT':
+            return <EditCourse/>
           default:
             return ""
         }})()}

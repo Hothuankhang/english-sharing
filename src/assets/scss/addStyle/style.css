@@ -20,7 +20,7 @@
 
 #login .add__form {
   width: 1000px;
-  height: 500px;
+  height: 80%;
   padding: 20px;
   border-radius: 20px;
   background: var(--white-color);
@@ -112,6 +112,14 @@
 
 #login .login__form .infor p button:hover {
   color: var(--primary-color);
+}
+
+#login .lesson__grid {
+  margin: 20px auto;
+}
+
+#login .lesson__grid .grid {
+  margin: auto;
 }
 
 /* Mobile */

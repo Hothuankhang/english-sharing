@@ -3,6 +3,7 @@ import AdminHeader from './components/Admin/AdminHeader';
 import Homeheader from './components/Home/Homeheader';
 import { useSelector} from "react-redux"
 import CreatorHeader from './components/Creator/CreatorHeader';
+import UserHeader from './components/User/UserHeader';
 
 function App() {
   const state = useSelector((state)=>({...state}));
@@ -20,6 +21,9 @@ function App() {
 
         case 'CREATOR':
           return <CreatorHeader/>
+        
+        case 'USER':
+          return <UserHeader/>
 
         default:
           return <Homeheader/>
