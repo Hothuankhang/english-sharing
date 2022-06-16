@@ -138,7 +138,16 @@ const lessonEdit=(editId,name,desc,link,courseId)=>({
     courseId:courseId
 })
 
-
+const userCourse=(courseId,userId,time)=>({
+    type: "USER_COURSE",
+    courseId: courseId,
+    userId: userId,
+    time: time
+})
+const fecthUserCourse=(userId)=>({
+    type: "FETCH_USER_COURSE",
+    userId: userId,
+})
 
 export {loginCourse, signinCourse, 
     showPage, showHeader,showAdd,
@@ -147,5 +156,6 @@ export {loginCourse, signinCourse,
     addCategory,deleteCategory,editCategoy,
     addCourse,check,courseApprove,
     courseDelete,lessonAdd,courseEdit,
-    lessonDelete,lessonEdit
+    lessonDelete,lessonEdit, userCourse,
+    fecthUserCourse
 }

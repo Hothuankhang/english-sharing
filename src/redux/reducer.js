@@ -5,6 +5,7 @@ const initialState ={
     courseType:[],
     courseList:[],
     lessonList:[],
+    userCourse:[],
     login: false,
     signin: false,
     page: "HOME",
@@ -74,6 +75,7 @@ var lessonList = projectFirestore.collection("Lessons")
                 })
             })
 
+
 const courseReducer =(state = initialState,action)=>{
     switch(action.type){
         case 'LOGIN_COURSE' :
@@ -88,9 +90,8 @@ const courseReducer =(state = initialState,action)=>{
             const user = action.username
             const pass = action.pass
             const account = initialState.account
-            const updateCourseType= initialState.courseType
-            const updateCourse = initialState.courseList
-            const updateLesson = initialState.lessonList
+            let courseListId = []
+            let userCourseList = []
             let page_role=""
             let page_header=""
             for(let i=0;i<account.length;i++){
@@ -108,6 +109,27 @@ const courseReducer =(state = initialState,action)=>{
                             case "user":
                                 page_role = "USER_MAIN"
                                 page_header="USER"
+                                projectFirestore.collection("UserCourses")
+            .get().then((snapshot)=>{
+                snapshot.docs.forEach(doc =>{
+                    if(doc.data().userId === localStorage.getItem("accountId"))
+                    courseListId.push(
+                doc.data().courseId
+            )
+            })
+        })
+projectFirestore.collection("Courses")
+            .get().then((snapshot)=>{
+                snapshot.docs.forEach(doc =>{
+                    for(let i = 0 ;i< courseListId.length;i++){
+                        if(courseListId[i] === doc.id){
+
+                            initialState.userCourse.push(doc.data())
+                        }
+                    }
+            })
+        })
+
                                 break;
                             default :
                                 console.log("éc")    
@@ -623,9 +645,61 @@ const courseReducer =(state = initialState,action)=>{
                 lessonList:editLesson
             }
 
+        case 'USER_COURSE':
+            const userList = initialState.userCourse
+            projectFirestore.collection("UserCourses").add({
+                courseId: action.courseId,
+                userId:action.userId,
+                time:action.time
+            })
+            for(let i = 0 ; i<initialState.courseList.length;i++){
+                if(initialState.courseList[i].id === action.courseId){
+                    userList.push(initialState.courseList[i]
+                    )
+                }
+            }
+
+
+            return{
+                ...state,
+                userCourse:userList,    
+            }
+        
+        case 'FETCH_USER_COURSE':
+        //     let courseListId = []
+        //     let userCourseList = []
+        //     projectFirestore.collection("UserCourses")
+        //     .get().then((snapshot)=>{
+        //         snapshot.docs.forEach(doc =>{
+        //             if(doc.data().userId === action.userId)
+        //             courseListId.push(
+        //         doc.data().courseId
+        //     )
+        //     })
+        // })
+        // console.log(courseListId)
+        // projectFirestore.collection("Courses")
+        //     .get().then((snapshot)=>{
+        //         snapshot.docs.forEach(doc =>{
+        //             for(let i = 0 ;i< courseListId.length;i++){
+        //                 if(courseListId[i] === doc.id){
+
+        //                     userCourseList.push(doc.data())
+        //                 }
+        //             }
+        //     })
+        // })
+        // console.log(userCourseList)
+        return{
+            ...state,
+            userCourse:userCourseList,    
+        }
+
         case 'CHECK':
             console.log(action)
             break;
+        
+
         default:
             return{
                 ...state,

@@ -1,9 +1,9 @@
 import React from 'react'
-import Listening from '../../assets/img/listening-skill.png'
 import '../../assets/scss/courseStyle/style.css'
 import {useDispatch, useSelector} from "react-redux"
-import {showPage} from '../../redux/action'
+import {showPage, userCourse} from '../../redux/action'
 import { Avatar } from '@mui/material'
+import { AddCircle, ThumbDown, ThumbUp } from '@mui/icons-material';
 function ListCourse() {
     const state = useSelector((state)=>({...state}));
     const dispatch = useDispatch();
@@ -16,6 +16,17 @@ function ListCourse() {
               'COURSE'
             )
           )
+    }
+
+    function handleAdd(courseId){
+        console.log(courseId,localStorage.getItem("accountId"),Date(Date.now()))
+        dispatch(
+            userCourse(
+                courseId,
+                localStorage.getItem("accountId"),
+                Date(Date.now())
+            )
+        )
     }
 
     function randomColor(){
@@ -47,8 +58,18 @@ function ListCourse() {
                                     >{course.name}
                                     <h3>{course.desc}</h3>
                                     </Avatar>
-                                    
                                 </button>
+                                    {
+                                       localStorage.getItem("roleName") === "user"?
+                                       <div className='add interact_btn' 
+                                       style={{display:"flex", flexDirection:"column", 
+                                       alignItems:"center"}}
+                                       onClick={()=>handleAdd(course.id)}
+                                       >
+                                       <AddCircle/>Thêm khóa học
+                                        </div>:
+                                     "" 
+                                    }
                             </div>
                             )
                         }
