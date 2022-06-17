@@ -2,14 +2,15 @@ import React, { useState } from 'react'
 import '../../assets/scss/homeStyle/style.css'
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
-import {deleteUser, showAdd, showEdit} from '../../redux/action'
+import {deleteUser, showAdd, showEdit,signinCourse} from '../../redux/action'
 import { useDispatch, useSelector } from "react-redux"
-  
+import Signin from '../Signin/Signin';
+
   function UserManage() {
     const [del,setDel] = useState([])
     const state = useSelector((state)=>({...state}));
     const dispatch = useDispatch();
-
+    const signupShow = state.course.signin
     function handleDel(){
         if(del.length<1){
             alert("Hãy chọn dòng cần xóa trước!")
@@ -57,6 +58,14 @@ import { useDispatch, useSelector } from "react-redux"
         }
       }
       return count
+    }
+
+    function handleSignup(){
+      dispatch(
+        signinCourse(
+            !signupShow
+        )
+      )
     }
 
     // function handleChange(changeInfor){
@@ -140,9 +149,10 @@ import { useDispatch, useSelector } from "react-redux"
             />
             <div className='btn'>
                 <Button variant="contained" onClick={handleDel} className="delete">Delete</Button>
-                {/* <Button variant="contained" onClick={handleAdd} className="add">Add +</Button> */}
+                <Button variant="contained" onClick={handleSignup} className="add">Add +</Button>
             </div>
         </div>
+        {signupShow ? <Signin></Signin> : ""}
     </div>
   )
 }

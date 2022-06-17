@@ -13,9 +13,10 @@
 }
 
 .list_course .list__item .course__type .course_wrapper {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
+  display: -ms-grid;
+  display: grid;
+  -ms-grid-columns: 1fr 1fr 1fr;
+      grid-template-columns: 1fr 1fr 1fr;
 }
 
 .list_course .list__item .course__type .course_wrapper .courses button {
@@ -68,9 +69,9 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: space-evenly;
+      -ms-flex-pack: space-evenly;
+          justify-content: space-evenly;
   margin: 20px;
 }
 
@@ -93,7 +94,7 @@
 
 .course .course__interact .interact_field {
   background-color: var(--white-color);
-  width: 100%;
+  width: 70%;
   min-height: 700px;
   margin: 10px;
   padding: 10px;
@@ -113,7 +114,6 @@
 }
 
 .course__list {
-  border: 1px solid var(--primary-color);
   border-radius: 0 25px 25px 0;
   color: var(--primary-color);
   font-size: 20px;

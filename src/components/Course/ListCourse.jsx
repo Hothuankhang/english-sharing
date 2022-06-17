@@ -9,6 +9,8 @@ function ListCourse() {
     const dispatch = useDispatch();
     const courseList = state.course.courseList
     const courseType = state.course.courseType
+    const userList = state.course.userCourse
+    console.log(userList)
     function handleCourse(course,courseId){
         localStorage.setItem('courseId', courseId)
         dispatch(
@@ -18,15 +20,41 @@ function ListCourse() {
           )
     }
 
+    function handleCheckAdd(courseId){
+        let count = 0
+        for(let i = 0 ; i<userList.length;i++){
+            if(courseId === userList[i].id){
+                count++
+            }
+        }
+        console.log(count)
+        if(count === 0){
+            return true
+        }
+        else
+            return false
+    }
+
     function handleAdd(courseId){
         console.log(courseId,localStorage.getItem("accountId"),Date(Date.now()))
-        dispatch(
-            userCourse(
-                courseId,
-                localStorage.getItem("accountId"),
-                Date(Date.now())
+        let count = 0
+        for(let i = 0 ; i<userList.length;i++){
+            if(courseId === userList[i].courseId){
+                count++
+            }
+        }
+        if(count === 0){
+            dispatch(
+                userCourse(
+                    courseId,
+                    localStorage.getItem("accountId"),
+                    Date(Date.now())
+                )
             )
-        )
+        }
+        else{
+            alert("Khóa học này đã có trong list")
+        }
     }
 
     function randomColor(){
@@ -60,7 +88,8 @@ function ListCourse() {
                                     </Avatar>
                                 </button>
                                     {
-                                       localStorage.getItem("roleName") === "user"?
+                                       localStorage.getItem("roleName") === "user" && handleCheckAdd(course.id)=== true?
+
                                        <div className='add interact_btn' 
                                        style={{display:"flex", flexDirection:"column", 
                                        alignItems:"center"}}

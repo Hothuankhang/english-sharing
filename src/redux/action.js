@@ -149,6 +149,19 @@ const fecthUserCourse=(userId)=>({
     userId: userId,
 })
 
+const AddUserComment=(userId,userName,comment,courseId)=>({
+    type: "FETCH_USER_COURSE",
+    userId: userId,
+    userName:userName,
+    comment:comment,
+    courseId:courseId
+})
+
+const fecthUserComment=(userId)=>({
+    type: "FETCH_USER_COURSE",
+    userId: userId,
+})
+
 export {loginCourse, signinCourse, 
     showPage, showHeader,showAdd,
     showEdit,loginCheck,editUser,
@@ -157,5 +170,5 @@ export {loginCourse, signinCourse,
     addCourse,check,courseApprove,
     courseDelete,lessonAdd,courseEdit,
     lessonDelete,lessonEdit, userCourse,
-    fecthUserCourse
+    fecthUserCourse,AddUserComment
 }

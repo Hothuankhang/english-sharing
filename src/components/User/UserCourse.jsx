@@ -50,10 +50,15 @@ function UserCourse() {
         <div className="list_course">
             <div className='list__item'>
                 <div className='course__type' >
+                    <h1
+                    style={{
+                        fontSize:"40px"
+                    }}
+                    >DANH SÁCH KHÓA HỌC CÁ NHÂN</h1>
                     <div className='course_wrapper'>
                     {userList.map((course,index)=>{
                                 return(
-                                    <div className='courses' key={index}>
+                                    <div className='courses' key={course.id}>
                                     <button onClick={()=>handleCourse("ello",course.id)}
                                     style={{backgroundColor:randomColor()}}
                                     >
