@@ -18,7 +18,7 @@ function Homebody() {
            cộng đồng. </div>
         </div>
       </section>
-      <Homemain/>
+      {/* <Homemain/> */}
       <Homefooter/>
 
     </div>

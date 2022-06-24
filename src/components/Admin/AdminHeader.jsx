@@ -32,6 +32,9 @@ function AdminHeader() {
         )
     )
     }
+    function onlyCapitalLetters (str) {
+      return str.replace(/[^A-Z]+/g, "");
+  }
     return (
       <div className='english__course'>
         <div className='navbar'>
@@ -44,7 +47,7 @@ function AdminHeader() {
             </div>
   
           {/* SEARCH */}
-            <div className='navbar__search'>
+            {/* <div className='navbar__search'>
               <div className="search__bar">
                 <div className="icon">
                 <Search></Search>
@@ -55,12 +58,12 @@ function AdminHeader() {
                   placeholder="Tìm kiếm khóa học, bài viết, video, ...">
                 </input>
               </div>
-            </div>
+            </div> */}
   
           {/* LOGIN */}
             <div className='navbar__btn'>
               <button className='login' onClick={handleLogout}>Đăng xuất</button>
-              <Avatar>{localStorage.getItem("accountName").at(-1)}</Avatar>
+              <Avatar sx={{ width: 50, height: 50}}>{onlyCapitalLetters(localStorage.getItem("accountName"))}</Avatar>
             </div>
         </div>
         {(() => {

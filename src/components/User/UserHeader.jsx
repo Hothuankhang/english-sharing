@@ -82,6 +82,9 @@ function UserHeader() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  function onlyCapitalLetters (str) {
+    return str.replace(/[^A-Z]+/g, "");
+}
   return (
     <div className='english__course'>
       <div className='navbar'>
@@ -121,7 +124,7 @@ function UserHeader() {
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                 >
-                  <Avatar sx={{ width: 50, height: 50}}>{localStorage.getItem("accountName")}</Avatar>
+                  <Avatar sx={{ width: 50, height: 50}}>{onlyCapitalLetters(localStorage.getItem("accountName"))}</Avatar>
                 </IconButton>
               </Tooltip>
             </Box>

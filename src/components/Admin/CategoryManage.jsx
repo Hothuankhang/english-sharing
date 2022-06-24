@@ -71,11 +71,11 @@ function CategoryManage() {
       { field: 'id', headerName: 'ID', width: 70 },
       { field: 'CategoryName', headerName: 'Tên danh mục', width: 300 },
       { field: 'CourseNumber', headerName: 'Số khóa học', width: 130 },
-      { field: 'Status', headerName: 'Trạng thái', width: 130 },
+      // { field: 'Status', headerName: 'Trạng thái', width: 130 },
       {
           field: "click",
           headerName: "",
-          width: 100,
+          width: 130,
           renderCell: (params) => (
             <strong>
               <Button
@@ -100,7 +100,8 @@ function CategoryManage() {
       { id: courseType[i].id,
         CategoryName: courseType[i].name, 
         CourseNumber: countCourse(courseType[i].id),
-        Status: courseType[i].status }
+        // Status: courseType[i].status 
+      }
       rows.push(infor)
     }
   return (
@@ -127,7 +128,7 @@ function CategoryManage() {
                 checkboxSelection
                 onSelectionModelChange={(e)=>setDel(e)}
                 className="grid"
-                style={{ width: 800, margin:"auto" }}
+                style={{ width: 850, margin:"auto" }}
             />
             <div className='btn'>
                 <Button variant="contained" onClick={handleDel} className="delete">Xóa</Button>

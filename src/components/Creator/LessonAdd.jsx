@@ -21,17 +21,17 @@ function CourseAdd() {
   const courseList = state.course.courseList
   const page = state.course.page
   const [courseId,setCourseId] = useState(courseList[0].id);
-  const [course, setCourse] = useState(courseList[0].name); 
+  const [course, setCourse] = useState(getFirst()); 
 
   console.log()
   function handleChangeType(e){
     setCourse(e.target.value)
 
-    for(let i =0; i<courseList.length;i++){
-      if(e.target.value === courseList[i].name){
-        setCourseId(courseList[i].id)
-      }
-    }
+    // for(let i =0; i<courseList.length;i++){
+    //   if(e.target.value === courseList[i].name){
+    //     setCourseId(courseList[i].id)
+    //   }
+    // }
   }
   
 
@@ -44,7 +44,7 @@ function CourseAdd() {
   }
 
   function handleAdd(){
-
+console.log(courseId)
     dispatch(
       lessonAdd(
         name,
@@ -54,6 +54,17 @@ function CourseAdd() {
       )
     )
   }    
+
+  function getFirst(){
+    const list =[]
+
+    for(let i = 0 ; i< courseList.length;i++){
+      if(courseList[i].creatorID === localStorage.getItem("accountId")){
+        list.push(courseList[i])
+      }
+    }
+    return list[0].name
+  }
 
 
 
@@ -86,11 +97,19 @@ function CourseAdd() {
               onChange={handleChangeType}
             >
               {courseList.map((courseList)=>{
-         return(
-          <MenuItem value={courseList.name} key={courseList.id}
-          name={courseList.id}
-          >{courseList.name}</MenuItem>
-         )})}
+                {
+                  if(courseList.creatorID === localStorage.getItem("accountId")){
+
+                    return(
+           
+                     <MenuItem value={courseList.name} key={courseList.id}
+                     name={courseList.id}
+                     onClick={()=>setCourseId(courseList.id)}
+                     >{courseList.name}</MenuItem>
+                    )
+                  }
+                }
+         })}
             </Select>
         </div>
         <Button className='infor__btn' variant="contained" 

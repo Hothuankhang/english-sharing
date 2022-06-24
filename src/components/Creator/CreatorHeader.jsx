@@ -29,6 +29,9 @@ function CreatorHeader() {
         )
     )
     }
+    function onlyCapitalLetters (str) {
+      return str.replace(/[^A-Z]+/g, "");
+  }
     return (
       <div className='english__course'>
         <div className='navbar'>
@@ -57,7 +60,7 @@ function CreatorHeader() {
           {/* LOGIN */}
             <div className='navbar__btn'>
               <button className='login' onClick={handleLogout}>Đăng xuất</button>
-              <Avatar>{localStorage.getItem("accountName").at(-1)}</Avatar>
+              <Avatar sx={{ width: 50, height: 50}}>{onlyCapitalLetters(localStorage.getItem("accountName"))}</Avatar>
             </div>
         </div>
         {(() => {

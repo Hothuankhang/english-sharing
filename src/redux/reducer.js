@@ -95,71 +95,71 @@ const courseReducer = (state = initialState, action) => {
             let userCourseList = []
             let page_role = ""
             let page_header = ""
-            let check =""
+            let check = ""
             for (let i = 0; i < account.length; i++) {
                 if (user === account[i].username &&
-                    pass === account[i].pass ) {
-                        if(account[i].status === "đang hoạt động"){
-                            
-                            switch (account[i].role) {
-                                case "admin":
-                                    page_role = "ADMIN_MAIN"
-                                    page_header = "ADMIN"
-                                    break;
-                                case "creator":
-                                    page_role = "CREATOR_MAIN"
-                                    page_header = "CREATOR"
-                                    break;
-                                case "user":
-                                    page_role = "USER_MAIN"
-                                    page_header = "USER"
-                                    projectFirestore.collection("UserCourses")
-                                        .get().then((snapshot) => {
-                                            snapshot.docs.forEach(doc => {
-                                                if (doc.data().userId === localStorage.getItem("accountId"))
-                                                    courseListId.push(
-                                                        doc.data().courseId
-                                                    )
-                                            })
-                                        })
-                                    projectFirestore.collection("Courses")
-                                        .get().then((snapshot) => {
-                                            snapshot.docs.forEach(doc => {
-                                                for (let i = 0; i < courseListId.length; i++) {
-                                                    if (courseListId[i] === doc.id) {
-        
-                                                        initialState.userCourse.push(
-                                                            {
-                                                                id: doc.id,
-                                                                desc: doc.data().desc,
-                                                                name: doc.data().name
-                                                            }
-                                                        )
-                                                    }
-                                                }
-                                            })
-                                        })
-        
-                                    projectFirestore.collection("Comments")
-                                        .get().then((snapshot) => {
-                                            snapshot.docs.forEach(doc => {
-                                                initialState.comment.push(
-                                                    doc.data()
+                    pass === account[i].pass) {
+                    if (account[i].status === "đang hoạt động") {
+
+                        switch (account[i].role) {
+                            case "admin":
+                                page_role = "ADMIN_MAIN"
+                                page_header = "ADMIN"
+                                break;
+                            case "creator":
+                                page_role = "CREATOR_MAIN"
+                                page_header = "CREATOR"
+                                break;
+                            case "user":
+                                page_role = "USER_MAIN"
+                                page_header = "USER"
+                                projectFirestore.collection("UserCourses")
+                                    .get().then((snapshot) => {
+                                        snapshot.docs.forEach(doc => {
+                                            if (doc.data().userId === localStorage.getItem("accountId"))
+                                                courseListId.push(
+                                                    doc.data().courseId
                                                 )
-                                            })
                                         })
-        
-                                    break;
-                                default:
-                                    console.log("éc")
-                            }
-                            console.log(account[i])
-                            localStorage.setItem('accountId', account[i].ID);
-                            localStorage.setItem('accountName', account[i].name);
-                            localStorage.setItem('roleName', account[i].role);
+                                    })
+                                projectFirestore.collection("Courses")
+                                    .get().then((snapshot) => {
+                                        snapshot.docs.forEach(doc => {
+                                            for (let i = 0; i < courseListId.length; i++) {
+                                                if (courseListId[i] === doc.id) {
+
+                                                    initialState.userCourse.push(
+                                                        {
+                                                            id: doc.id,
+                                                            desc: doc.data().desc,
+                                                            name: doc.data().name
+                                                        }
+                                                    )
+                                                }
+                                            }
+                                        })
+                                    })
+
+                                projectFirestore.collection("Comments")
+                                    .get().then((snapshot) => {
+                                        snapshot.docs.forEach(doc => {
+                                            initialState.comment.push(
+                                                doc.data()
+                                            )
+                                        })
+                                    })
+
+                                break;
+                            default:
+                                console.log("éc")
                         }
-                        else
-                            check = "khóa"
+                        console.log(account[i])
+                        localStorage.setItem('accountId', account[i].ID);
+                        localStorage.setItem('accountName', account[i].name);
+                        localStorage.setItem('roleName', account[i].role);
+                    }
+                    else
+                        check = "khóa"
                 }
             }
 
@@ -172,13 +172,13 @@ const courseReducer = (state = initialState, action) => {
                 };
             }
             else {
-                if(check === "khóa"){
+                if (check === "khóa") {
                     alert("Tài khoản đã tạm khóa , vui lòng liên lạc với quản trị viên ")
                     return {
                         ...state,
                     };
                 }
-                else{
+                else {
 
                     alert("Tên đăng nhập hoặc mật khẩu sai")
                     return {
@@ -246,7 +246,7 @@ const courseReducer = (state = initialState, action) => {
                                 })
                             })
                         })
-                    alert("Thành công")
+                    alert("Đăng kí hành công")
                     return {
                         ...state,
                         account: accountList,
@@ -296,22 +296,36 @@ const courseReducer = (state = initialState, action) => {
             const newStatus = action.editStatus
             const newType = action.editType
             const editAccount = initialState.account
+            const newEditAccount = []
             console.log(editID)
             projectFirestore.collection("Account").doc(editID).update({
                 status: newStatus,
                 role: newType
             })
 
-            for (let i = 0; i < editAccount.length; i++) {
-                if (editID === editAccount[i].ID) {
-                    editAccount[i].status = newStatus
-                    editAccount[i].role = newType
-                }
-            }
+            // for (let i = 0; i < editAccount.length; i++) {
+            //     if (editID === editAccount[i].ID) {
+            //         editAccount[i].status = newStatus
+            //         editAccount[i].role = newType
+            //     }
+            // }
+            projectFirestore.collection("Account")
+            .get().then((snapshot) => {
+                snapshot.docs.forEach(doc => {
+                    newEditAccount.push({
+                        ID: doc.id,
+                        id: doc.data().id,
+                        name: doc.data().name,
+                        pass: doc.data().pass,
+                        role: doc.data().role,
+                        status: doc.data().status,
+                        username: doc.data().username
+                    })
+                })
+            })
             return {
                 ...state,
-                account: editAccount,
-                edit: ""
+                account: newEditAccount,
             }
         case 'DELETE_USER':
             const delID = action.deleteId
