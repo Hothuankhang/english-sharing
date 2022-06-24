@@ -4,7 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
 import {deleteUser, showAdd, showEdit,signinCourse} from '../../redux/action'
 import { useDispatch, useSelector } from "react-redux"
-import Signin from '../Signin/Signin';
+import AddUser from './AddUser'
 
   function UserManage() {
     const [del,setDel] = useState([])
@@ -43,7 +43,7 @@ import Signin from '../Signin/Signin';
     function handleCountLock(){
       let count = 0
       for(let i=0 ; i< rows.length;i++){
-        if(rows[i].status==="lock"){
+        if(rows[i].status==="tạm khóa"){
           count = count+1;
         }
       }
@@ -100,7 +100,7 @@ import Signin from '../Signin/Signin';
                 style={{ marginLeft: 16 }}
                 onClick={()=>handleEdit(params.row)}
               >
-                Edit
+                Cập nhật
               </Button>
             </strong>
           ),
@@ -148,11 +148,11 @@ import Signin from '../Signin/Signin';
                 className="grid"
             />
             <div className='btn'>
-                <Button variant="contained" onClick={handleDel} className="delete">Delete</Button>
-                <Button variant="contained" onClick={handleSignup} className="add">Add +</Button>
+                <Button variant="contained" onClick={handleDel} className="delete">Xóa</Button>
+                <Button variant="contained" onClick={handleSignup} className="add">Thêm</Button>
             </div>
         </div>
-        {signupShow ? <Signin></Signin> : ""}
+        {signupShow ? <AddUser></AddUser> : ""}
     </div>
   )
 }

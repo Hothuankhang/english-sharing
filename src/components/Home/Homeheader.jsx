@@ -62,7 +62,7 @@ function Homeheader() {
           </div>
 
         {/* SEARCH */}
-          <div className='navbar__search'>
+          {/* <div className='navbar__search'>
             <div className="search__bar">
               <div className="icon">
               <Search></Search>
@@ -73,7 +73,7 @@ function Homeheader() {
                 placeholder="Tìm kiếm khóa học, bài viết, video, ...">
               </input>
             </div>
-          </div>
+          </div> */}
 
         {/* LOGIN */}
           <div className='navbar__btn'>

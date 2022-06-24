@@ -94,7 +94,7 @@ function UserHeader() {
         </div>
 
         {/* SEARCH */}
-        <div className='navbar__search'>
+        {/* <div className='navbar__search'>
           <div className="search__bar">
             <div className="icon">
               <Search></Search>
@@ -105,7 +105,7 @@ function UserHeader() {
               placeholder="Tìm kiếm khóa học, bài viết, video, ...">
             </input>
           </div>
-        </div>
+        </div> */}
 
         {/* LOGIN */}
         <div className='navbar__btn'>
@@ -121,7 +121,7 @@ function UserHeader() {
                   aria-haspopup="true"
                   aria-expanded={open ? 'true' : undefined}
                 >
-                  <Avatar sx={{ width: 32, height: 32 }}>{localStorage.getItem("accountName").at(-1)}</Avatar>
+                  <Avatar sx={{ width: 50, height: 50}}>{localStorage.getItem("accountName")}</Avatar>
                 </IconButton>
               </Tooltip>
             </Box>
@@ -160,9 +160,6 @@ function UserHeader() {
               transformOrigin={{ horizontal: 'right', vertical: 'top' }}
               anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
             >
-              <MenuItem>
-                <Avatar /> Thông tin cá nhân
-              </MenuItem>
               <MenuItem onClick={handleShowListCourse}>
                 <Avatar /> Danh sách khóa học
               </MenuItem>

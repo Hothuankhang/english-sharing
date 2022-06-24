@@ -246,7 +246,7 @@ const courseReducer = (state = initialState, action) => {
                                 })
                             })
                         })
-                    alert("Đăng kí thành công")
+                    alert("Thành công")
                     return {
                         ...state,
                         account: accountList,

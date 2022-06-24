@@ -78,7 +78,7 @@ function ListCourse() {
                             return(
                                 <div className='courses' key={course.id}>
                                 <button onClick={()=>handleCourse("ello",course.id)}
-                                style={{backgroundColor:randomColor()}}
+                                style={{backgroundColor:"black"}}
                                 >
                                     <Avatar
                                     className='display_course'
@@ -92,7 +92,9 @@ function ListCourse() {
 
                                        <div className='add interact_btn' 
                                        style={{display:"flex", flexDirection:"column", 
-                                       alignItems:"center"}}
+                                       alignItems:"center",
+                                       cursor:"pointer"
+                                    }}
                                        onClick={()=>handleAdd(course.id)}
                                        >
                                        <AddCircle/>Thêm khóa học

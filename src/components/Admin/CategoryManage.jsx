@@ -85,7 +85,7 @@ function CategoryManage() {
                 style={{ marginLeft: 16 }}
                 onClick={()=>handleEdit(params.row)}
               >
-                Edit
+                Cập nhật
               </Button>
             </strong>
           ),
@@ -130,8 +130,8 @@ function CategoryManage() {
                 style={{ width: 800, margin:"auto" }}
             />
             <div className='btn'>
-                <Button variant="contained" onClick={handleDel} className="delete">Delete</Button>
-                <Button variant="contained" onClick={handleAdd} className="add">Add +</Button>
+                <Button variant="contained" onClick={handleDel} className="delete">Xóa</Button>
+                <Button variant="contained" onClick={handleAdd} className="add">Thêm</Button>
             </div>
         </div>
     </div>

@@ -140,7 +140,7 @@ function CourseManage() {
             className="grid"
         />
             <div className='btn'>
-                <Button variant="contained" onClick={handleDel} className="delete">Delete</Button>
+                <Button variant="contained" onClick={handleDel} className="delete">Xóa</Button>
             </div>
     </div>
 </div>
