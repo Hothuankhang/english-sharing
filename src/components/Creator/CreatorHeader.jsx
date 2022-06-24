@@ -44,7 +44,7 @@ function CreatorHeader() {
             </div>
   
           {/* SEARCH */}
-            <div className='navbar__search'>
+            {/* <div className='navbar__search'>
               <div className="search__bar">
                 <div className="icon">
                 <Search></Search>
@@ -56,7 +56,7 @@ function CreatorHeader() {
                 </input>
               </div>
             </div>
-  
+   */}
           {/* LOGIN */}
             <div className='navbar__btn'>
               <button className='login' onClick={handleLogout}>Đăng xuất</button>
